@@ -47,14 +47,14 @@ void CppCommand::dispatch(QDiscordMessage message, QStringList args)
 		outputText += " does not seem to be a valid file. Set the "
 				"cpp.compiler_path config file variable to a valid compiler "
 				"path.";
-		_discord.rest()->editMessage(message, outputText);
+		_discord.rest()->editMessage(outputText, message);
 		return;
 	}
 	//Check if we're already compiling/executing something, so we can avoid
 	//breaking things.
 	if(_processing)
 	{
-		_discord.rest()->editMessage(message, "Already processing.");
+		_discord.rest()->editMessage("Already processing.", message);
 		return;
 	}
 	//All commands get access to the message, and thus to the entire raw
@@ -63,7 +63,7 @@ void CppCommand::dispatch(QDiscordMessage message, QStringList args)
 	QString code = message.content().mid(message.content().indexOf("\n") + 1);
 	if(!code.startsWith("```cpp") || !code.endsWith("```"))
 	{
-		_discord.rest()->editMessage(message, "Code formatting error.");
+		_discord.rest()->editMessage("Code formatting error.", message);
 		return;
 	}
 	int i = QString("```cpp\n").length();
@@ -73,7 +73,7 @@ void CppCommand::dispatch(QDiscordMessage message, QStringList args)
 	QFile file(_tempDir.path() + "/main.cpp");
 	if(!file.open(QFile::WriteOnly | QFile::Truncate))
 	{
-		_discord.rest()->editMessage(message, "Could not open temporary file.");
+		_discord.rest()->editMessage("Could not open temporary file.", message);
 		return;
 	}
 	file.write((code + "\n").toUtf8());

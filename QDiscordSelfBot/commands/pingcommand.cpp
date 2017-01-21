@@ -28,7 +28,7 @@ void PingCommand::dispatch(QDiscordMessage message, QStringList args)
 {
 	Q_UNUSED(args);
 	//Ping pong!
-	_discord.rest()->editMessage(message, "Pong!");
+	_discord.rest()->editMessage("Pong!", message);
 }
 
 QString PingCommand::commandName()

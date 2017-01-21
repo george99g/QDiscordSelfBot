@@ -28,7 +28,7 @@ void UrbanCommand::dispatch(QDiscordMessage message, QStringList args)
 {
 	if(args.length() != 1)
 	{
-		_discord.rest()->editMessage(message, "One argument is required.");
+		_discord.rest()->editMessage("One argument is required.", message);
 		return;
 	}
 	//Construct the URL
@@ -47,7 +47,7 @@ void UrbanCommand::dispatch(QDiscordMessage message, QStringList args)
 	[=]() {
 		if(reply->error() != QNetworkReply::NoError)
 		{
-			_discord.rest()->editMessage(message, "Error: " + reply->errorString());
+			_discord.rest()->editMessage("Error: " + reply->errorString(), message);
 			reply->deleteLater();
 			return;
 		}
@@ -58,7 +58,7 @@ void UrbanCommand::dispatch(QDiscordMessage message, QStringList args)
 				!object.contains("list")
 		  )
 		{
-			_discord.rest()->editMessage(message, "Could not find a definition.");
+			_discord.rest()->editMessage("Could not find a definition.", message);
 			reply->deleteLater();
 			return;
 		}
@@ -69,7 +69,7 @@ void UrbanCommand::dispatch(QDiscordMessage message, QStringList args)
 		definition += "**Link:** <" + object["permalink"].toString() + ">";
 		if(definition.length() > 2000)
 			definition = "Definition too long. Visit " + object["permalink"].toString();
-		_discord.rest()->editMessage(message, definition);
+		_discord.rest()->editMessage(definition, message);
 		reply->deleteLater();
 	});
 }

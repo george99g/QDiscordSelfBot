@@ -35,7 +35,7 @@ void TestCommand::dispatch(QDiscordMessage message, QStringList args)
 		text += "**Arguments:**\n{`";
 		text += args.join("`, `") + "`}";
 	}
-	_discord.rest()->editMessage(message, text);
+	_discord.rest()->editMessage(text, message);
 }
 
 QString TestCommand::commandName()

@@ -29,7 +29,7 @@ void HelpCommand::dispatch(QDiscordMessage message, QStringList args)
 {
 	if(args.length() > 1)
 	{
-		_discord.rest()->editMessage(message, "Too many arguments.");
+		_discord.rest()->editMessage("Too many arguments.", message);
 		return;
 	}
 	//Give information for one command in case it's specified.
@@ -38,7 +38,7 @@ void HelpCommand::dispatch(QDiscordMessage message, QStringList args)
 		Command* command =CommandManager::instance().command(args[0]);
 		if(!command)
 		{
-			_discord.rest()->editMessage(message, "Command not found.");
+			_discord.rest()->editMessage("Command not found.", message);
 			return;
 		}
 		QString text = "**" + command->commandName() + ":**\n";
@@ -54,14 +54,14 @@ void HelpCommand::dispatch(QDiscordMessage message, QStringList args)
 			for(const QString arg : command->argumentText().mid(1))
 				text += "\n" + arg;
 		}
-		_discord.rest()->editMessage(message, text);
+		_discord.rest()->editMessage(text, message);
 		return;
 	}
 	//If not, just list all of the commands.
 	QString text = "All available commands:\n`";
 	text += CommandManager::instance().commands().keys().join("`, `");
 	text += "`.";
-	_discord.rest()->editMessage(message, text);
+	_discord.rest()->editMessage(text, message);
 }
 
 QString HelpCommand::commandName()

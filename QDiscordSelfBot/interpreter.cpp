@@ -64,8 +64,8 @@ void Interpreter::messageReceived(QDiscordMessage message)
 	//Make sure the command is actually one we know.
 	if(!commands.keys().contains(command))
 	{
-		_discord.rest()->editMessage(message,
-									 "`" + command + "` is not a command.");
+		_discord.rest()->editMessage("`" + command + "` is not a command.",
+									 message);
 		return;
 	}
 	QStringList args;
