@@ -19,33 +19,32 @@
 #include "killcommand.hpp"
 
 KillCommand::KillCommand(QDiscord& discord, QObject* parent)
-: QObject(parent), Command(discord)
+    : QObject(parent)
+    , Command(discord)
 {
-
 }
 
 void KillCommand::dispatch(QDiscordMessage message, QStringList args)
 {
-	Q_UNUSED(args);
-	//Just your average command to kill the application.
-	_discord.rest()->deleteMessage(message);
-	_discord.logout();
-	connect(&_discord, &QDiscord::loggedOut, [=]() {
-		qApp->exit(EXIT_SUCCESS);
-	});
+    Q_UNUSED(args);
+    // Just your average command to kill the application.
+    message.remove();
+    _discord.logout();
+    connect(
+        &_discord, &QDiscord::loggedOut, [=]() { qApp->exit(EXIT_SUCCESS); });
 }
 
 QString KillCommand::commandName()
 {
-	return "kill";
+    return "kill";
 }
 
 QString KillCommand::helpText()
 {
-	return "Kills the selfbot.";
+    return "Kills the selfbot.";
 }
 
 QStringList KillCommand::argumentText()
 {
-	return QStringList();
+    return QStringList();
 }

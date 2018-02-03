@@ -19,29 +19,28 @@
 #include "pingcommand.hpp"
 
 PingCommand::PingCommand(QDiscord& discord)
-:Command(discord)
+    : Command(discord)
 {
-
 }
 
 void PingCommand::dispatch(QDiscordMessage message, QStringList args)
 {
-	Q_UNUSED(args);
-	//Ping pong!
-	_discord.rest()->editMessage("Pong!", message);
+    Q_UNUSED(args);
+    // Ping pong!
+    message.edit("Pong!");
 }
 
 QString PingCommand::commandName()
 {
-	return "ping";
+    return "ping";
 }
 
 QString PingCommand::helpText()
 {
-	return "Immediately responds with a pong.";
+    return "Immediately responds with a pong.";
 }
 
 QStringList PingCommand::argumentText()
 {
-	return QStringList();
+    return QStringList();
 }

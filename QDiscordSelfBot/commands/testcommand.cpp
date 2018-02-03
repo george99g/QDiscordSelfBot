@@ -19,36 +19,35 @@
 #include "testcommand.hpp"
 
 TestCommand::TestCommand(QDiscord& discord)
-:Command(discord)
+    : Command(discord)
 {
-
 }
 
 void TestCommand::dispatch(QDiscordMessage message, QStringList args)
 {
-	//This command is useful for testing what arguments you're actually
-	//passing in.
-	QString text = "**Full message text:**\n";
-	text += message.content() + "\n";
-	if(args.length() > 0)
-	{
-		text += "**Arguments:**\n{`";
-		text += args.join("`, `") + "`}";
-	}
-	_discord.rest()->editMessage(text, message);
+    // This command is useful for testing what arguments you're actually
+    // passing in.
+    QString text = "**Full message text:**\n";
+    text += message.content() + "\n";
+    if(args.length() > 0)
+    {
+        text += "**Arguments:**\n{`";
+        text += args.join("`, `") + "`}";
+    }
+    message.edit(text);
 }
 
 QString TestCommand::commandName()
 {
-	return "test";
+    return "test";
 }
 
 QString TestCommand::helpText()
 {
-	return "Test the interpreter's parsing.";
+    return "Test the interpreter's parsing.";
 }
 
 QStringList TestCommand::argumentText()
 {
-	return QStringList();
+    return QStringList();
 }

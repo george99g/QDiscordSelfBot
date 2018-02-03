@@ -25,6 +25,6 @@ HEADERS += \
     commandmanager.hpp \
     config.hpp
 
-LIBS += -lQDiscord
+include(QDiscord/QDiscord/QDiscord.pri)
 
 include(commands/commands.pri)

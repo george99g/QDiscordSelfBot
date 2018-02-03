@@ -1,0 +1,4 @@
+[submodule "QDiscordSelfBot/QDiscord"]
+	path = QDiscordSelfBot/QDiscord
+	url = ../../george99g/QDiscord
+	branch = testing
